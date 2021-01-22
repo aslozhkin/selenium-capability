@@ -15,7 +15,7 @@ if [ ! -z "$SE_OPTS" ]; then
   echo "Appending Selenium options: ${SE_OPTS}"
 fi
 
-java ${JAVA_OPTS} -cp "${ROOT}/selenium-server-standalone.jar:${ROOT}/capability_matcher-1.0.jar" org.openqa.grid.selenium.GridLauncherV3 \
+java ${JAVA_OPTS} -cp "${ROOT}/capability_matcher-1.0.jar:${ROOT}/capability_matcher-1.0.jar" org.openqa.grid.selenium.GridLauncherV3 \
   -role hub \
   -hubConfig ${CONF} \
 ${SE_OPTS}
