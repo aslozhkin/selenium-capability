@@ -2,7 +2,7 @@ import org.openqa.grid.internal.utils.DefaultCapabilityMatcher;
 
 import java.util.*;
 
-public class CustomCapabilityMatcher extends DefaultCapabilityMatcher {
+public class CustomCapabilitiesMatcher extends DefaultCapabilityMatcher {
     @Override
     public boolean matches(Map<String, Object> nodeCapability, Map<String, Object> requestedCapability) {
         final String deviceName = "deviceName";
