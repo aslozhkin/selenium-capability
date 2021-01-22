@@ -1,4 +1,4 @@
-FROM selenium/base:3.141.59-neon
+FROM selenium/base:3.141.59-20210105
 LABEL authors=SeleniumHQ
 
 USER seluser
