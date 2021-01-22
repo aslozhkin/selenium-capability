@@ -1,3 +1,5 @@
+package ru.lanit.at;
+
 import org.openqa.grid.internal.utils.DefaultCapabilityMatcher;
 
 import java.util.*;
