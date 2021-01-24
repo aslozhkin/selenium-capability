@@ -33,7 +33,10 @@ COPY docker/generate_config \
      docker/start-selenium-hub.sh \
      /opt/bin/
 
-COPY target/capability_matcher-1.0.jar /opt/selenium
+COPY target/mcloud-grid-jar-with-dependencies.jar \
+    /opt/selenium
+COPY target/mcloud-grid-1.0.jar \
+    /opt/selenium
 
 RUN /opt/bin/generate_config > /opt/selenium/config.json
 
