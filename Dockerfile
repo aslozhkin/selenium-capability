@@ -37,4 +37,4 @@ COPY target/capability_matcher-1.0.jar /opt/selenium
 
 RUN /opt/bin/generate_config > /opt/selenium/config.json
 
-CMD["/opt/bin/start-selenium-hub.sh"]
+CMD ["/opt/bin/start-selenium-hub.sh"]
