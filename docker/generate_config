@@ -7,7 +7,7 @@ cat <<_EOF
   "role": "hub",
   "maxSession": ${GRID_MAX_SESSION},
   "newSessionWaitTimeout": ${GRID_NEW_SESSION_WAIT_TIMEOUT},
-  "capabilityMatcher": "ru.lanit.at.CustomCapabilitiesMatcher",
+  "capabilityMatcher": ru.lanit.at.CustomCapabilitiesMatcher,
   "throwOnCapabilityNotPresent": ${GRID_THROW_ON_CAPABILITY_NOT_PRESENT},
   "jettyMaxThreads": ${GRID_JETTY_MAX_THREADS},
   "cleanUpCycle": ${GRID_CLEAN_UP_CYCLE},
