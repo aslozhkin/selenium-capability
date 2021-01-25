@@ -1,30 +1,37 @@
 package ru.lanit.at;
 
-import org.openqa.grid.internal.utils.DefaultCapabilityMatcher;
+import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.grid.internal.utils.CapabilityMatcher;
+import org.openqa.selenium.remote.CapabilityType;
+import ru.lanit.at.validation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-public class CustomCapabilitiesMatcher extends DefaultCapabilityMatcher {
-    @Override
-    public boolean matches(Map<String, Object> nodeCapability, Map<String, Object> requestedCapability) {
-        final String deviceName = "deviceName";
-        final String deviceOSVersion = "deviceOSVersion";
+import static org.openqa.selenium.remote.CapabilityType.BROWSER_NAME;
 
-        // If the request does not have the special capability,
-        // we return what the DefaultCapabilityMatcher returns
-        if (requestedCapability.containsKey(deviceName)) {
-            return matcher(nodeCapability, requestedCapability, deviceName, deviceName);
-        } else if (requestedCapability.containsKey(deviceOSVersion)) {
-            return matcher(nodeCapability, requestedCapability, deviceOSVersion, deviceOSVersion);
-        } else {
-            return super.matches(nodeCapability, requestedCapability);
-        }
+public class CustomCapabilitiesMatcher implements CapabilityMatcher {
+
+    private final List<Validator> validators = new ArrayList<>();
+    {
+        validators.addAll(Arrays.asList(
+            new AliasedPropertyValidator(BROWSER_NAME, "browser"),
+            new VersionValidator(CapabilityType.BROWSER_VERSION),
+            new PlatformValidator(),
+            new VersionValidator(CapabilityType.VERSION),
+            new VersionValidator(MobileCapabilityType.PLATFORM_VERSION),
+            new SimplePropertyValidator(CapabilityType.APPLICATION_NAME),
+            new AppiumPropertyValidator(MobileCapabilityType.UDID),
+            new AppiumPropertyValidator(MobileCapabilityType.DEVICE_NAME)
+        ));
     }
 
-    private boolean matcher(Map<String, Object> nodeCapability, Map<String, Object> requestedCapability, String nCap, String rCap) {
-        if (!nodeCapability.containsKey(nCap)) return false;
-        String expected = (String) requestedCapability.get(rCap);
-        String actual = (String) nodeCapability.get(nCap);
-        return Objects.equals(expected, actual);
+    @Override
+    public boolean matches(Map<String, Object> providedCapabilities, Map<String, Object> requestedCapabilities) {
+
+        return providedCapabilities != null && requestedCapabilities != null
+                && validators.stream().allMatch(v -> v.apply(providedCapabilities, requestedCapabilities));
     }
 }
