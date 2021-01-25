@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:11
 
 #========================
 # Selenium Configuration
@@ -37,6 +37,8 @@ COPY target/mcloud-grid-jar-with-dependencies.jar \
     /opt/selenium
 COPY target/mcloud-grid-1.0.jar \
     /opt/selenium
+
+RUN chmod +x /opt/bin/generate_config && chmod +x /opt/bin/start-selenium-hub.sh
 
 RUN /opt/bin/generate_config > /opt/selenium/config.json
 
