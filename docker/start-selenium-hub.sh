@@ -19,4 +19,5 @@ java ${JAVA_OPTS} -cp /opt/selenium/mcloud-grid-1.0.jar:/opt/selenium/mcloud-gri
   org.openqa.grid.selenium.GridLauncherV3 \
   -role hub \
   -hubConfig ${CONF} \
+  -servlets ru.lanit.at.servlets.ListProxiesServlet
 ${SE_OPTS}
