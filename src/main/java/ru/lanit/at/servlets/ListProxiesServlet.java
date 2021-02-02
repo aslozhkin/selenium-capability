@@ -34,17 +34,26 @@ public class ListProxiesServlet extends RegistryBasedServlet {
         Iterator<RemoteProxy> iterator = proxySet.iterator();
         Iterable<RemoteProxy> iterable = () -> iterator;
         List<Map<String, String>> maps = StreamSupport.stream(iterable.spliterator(), false)
+                .filter(remoteProxy -> !remoteProxy.isBusy())
                 .map(remoteProxy -> {
                     Map<String, String> map = new HashMap<>();
                     List<MutableCapabilities> nodeCapabilities = remoteProxy.getConfig().capabilities;
                     map.put("platformVersion",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformVersion")).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformVersion")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"platformVersion\""))
+                                    .toString());
                     map.put("platformName",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformName")).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformName")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"platformName\""))
+                                    .toString());
                     map.put("DeviceID",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability("UDID")).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("UDID")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"UDID\""))
+                                    .toString());
                     map.put("deviceName",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"deviceName\""))
+                                    .toString());
                     return map;
                 }).collect(Collectors.toList());
         response.setContentType("application/json");
