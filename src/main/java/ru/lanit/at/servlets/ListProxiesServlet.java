@@ -38,13 +38,13 @@ public class ListProxiesServlet extends RegistryBasedServlet {
                     Map<String, String> map = new HashMap<>();
                     List<MutableCapabilities> nodeCapabilities = remoteProxy.getConfig().capabilities;
                     map.put("platformVersion",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability(MobileCapabilityType.PLATFORM_VERSION)).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformVersion")).findFirst().toString());
                     map.put("platformName",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability(MobileCapabilityType.PLATFORM_NAME)).findFirst().toString());
-                    map.put("udid",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability(MobileCapabilityType.UDID)).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("platformName")).findFirst().toString());
+                    map.put("DeviceID",
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("UDID")).findFirst().toString());
                     map.put("deviceName",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability(MobileCapabilityType.DEVICE_NAME)).findFirst().toString());
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst().toString());
                     return map;
                 }).collect(Collectors.toList());
         response.setContentType("application/json");
