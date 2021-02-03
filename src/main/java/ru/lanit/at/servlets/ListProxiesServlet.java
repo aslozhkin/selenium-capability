@@ -46,9 +46,9 @@ public class ListProxiesServlet extends RegistryBasedServlet {
                             nodeCapabilities.stream().map(cap -> cap.getCapability("platformName")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"platformName\""))
                                     .toString());
-                    map.put("DeviceID",
-                            nodeCapabilities.stream().map(cap -> cap.getCapability("UDID")).findFirst()
-                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"UDID\""))
+                    map.put("udid",
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("udid")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"udid\""))
                                     .toString());
                     map.put("deviceName",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst()
