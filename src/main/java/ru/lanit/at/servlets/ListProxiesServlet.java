@@ -54,6 +54,10 @@ public class ListProxiesServlet extends RegistryBasedServlet {
                             nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"deviceName\""))
                                     .toString());
+                    map.put("resolution",
+                            nodeCapabilities.stream().map(cap -> cap.getCapability("resolution")).findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"resolution\""))
+                                    .toString());
                     return map;
                 }).collect(Collectors.toList());
         response.setContentType("application/json");
