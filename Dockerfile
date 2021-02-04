@@ -27,6 +27,8 @@ ENV GRID_HUB_PORT 4444
 # As string, maps to "host"
 ENV GRID_HUB_HOST "0.0.0.0"
 
+RUN mvn clean package
+
 RUN mkdir /opt/selenium
 
 COPY docker/generate_config \
