@@ -5,6 +5,7 @@ import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 import org.openqa.grid.selenium.proxy.DefaultRemoteProxy;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class MobileRemoteProxy extends DefaultRemoteProxy {
@@ -16,6 +17,13 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
 
     @Override
     public void afterSession(TestSession session) {
-        LOGGER.info("After session works 1231231231231223");
+        System.out.println(session.getSlot().getRemoteURL().toString());
+
+//        String[] cmd = new String[]{"/bin/bash", "-c", "adb devices > testfile.txt"};
+//        try {
+//            Runtime.getRuntime().exec(cmd);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
