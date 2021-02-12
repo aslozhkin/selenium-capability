@@ -17,7 +17,7 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
 
     @Override
     public void afterSession(TestSession session) {
-        System.out.println(session.getSlot().getRemoteURL().toString());
+        LOGGER.info(session.getSlot().getRemoteURL().toString());
 
 //        String[] cmd = new String[]{"/bin/bash", "-c", "adb devices > testfile.txt"};
 //        try {
