@@ -21,7 +21,7 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
 
     @Override
     public void afterSession(TestSession session) {
-        LOGGER.info(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
+//        LOGGER.info(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
 //        URL url = null;
 //        try {
 //            url = new URL(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
