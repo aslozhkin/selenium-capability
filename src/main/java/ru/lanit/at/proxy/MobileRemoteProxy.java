@@ -25,8 +25,8 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         try {
-            CloseableHttpResponse response = httpClient.execute(request);
             LOGGER.info("Отправка запроса к узлу: \"" + url + "\"");
+            CloseableHttpResponse response = httpClient.execute(request);
             LOGGER.info(response.getStatusLine().toString());
         } catch (IOException ex) {
             LOGGER.info("Не удалось отправить запрос к узлу: \"" + url + "\"");
