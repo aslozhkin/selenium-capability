@@ -1,15 +1,15 @@
 package ru.lanit.at.proxy;
 
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.openqa.grid.common.RegistrationRequest;
 import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 import org.openqa.grid.selenium.proxy.DefaultRemoteProxy;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.logging.Logger;
 
 public class MobileRemoteProxy extends DefaultRemoteProxy {
@@ -21,23 +21,16 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
 
     @Override
     public void afterSession(TestSession session) {
-        URL url = null;
+        String url = session.getSlot().getRemoteURL().toString().replaceAll(":4723/wd/hub", "") + ":3333";
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet request = new HttpGet(url);
         try {
-            url = new URL(session.getSlot().getRemoteURL().toString().replaceAll(":4723/wd/hub", "") + ":3333");
-        } catch (MalformedURLException e) {
-            LOGGER.info("Не удалось получить адрес сессии");
-        }
-        HttpURLConnection con = null;
-        try {
-            con = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            LOGGER.info("Не удалось установить подключение с сессией: \"" + session.getSlot().getRemoteURL().toString() + "\"");
-        }
-        try {
-            con.setRequestMethod("GET");
-            LOGGER.info("Отправка запроса к узлу: \"" + session.getSlot().getRemoteURL().toString() + "\"");
-        } catch (ProtocolException e) {
-            LOGGER.info("Не удалось отправить GET запрос : \"" + session.getSlot().getRemoteURL().toString() + "\"");
+            CloseableHttpResponse response = httpClient.execute(request);
+            LOGGER.info("Отправка запроса к узлу: \"" + url + "\"");
+            LOGGER.info(response.getStatusLine().toString());
+        } catch (IOException ex) {
+            LOGGER.info("Не удалось отправить запрос к узлу: \"" + url + "\"");
+            ex.printStackTrace();
         }
     }
 }
