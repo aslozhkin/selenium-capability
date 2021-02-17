@@ -21,23 +21,24 @@ public class MobileRemoteProxy extends DefaultRemoteProxy {
 
     @Override
     public void afterSession(TestSession session) {
-        URL url = null;
-        try {
-            url = new URL(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
-        } catch (MalformedURLException e) {
-            LOGGER.info("Не удалось получить адрес сессии");
-        }
-        HttpURLConnection con = null;
-        try {
-            con = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            LOGGER.info("Не удалось установить подключение с сессией: \"" + session.getSlot().getRemoteURL().toString() + "\"");
-        }
-        try {
-            con.setRequestMethod("GET");
-            LOGGER.info("Отправка запроса к узлу: \"" + session.getSlot().getRemoteURL().toString() + "\"");
-        } catch (ProtocolException e) {
-            LOGGER.info("Не удалось отправить GET запрос : \"" + session.getSlot().getRemoteURL().toString() + "\"");
-        }
+        LOGGER.info(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
+//        URL url = null;
+//        try {
+//            url = new URL(session.getSlot().getRemoteURL().toString().replaceAll("/wd/hub", "") + ":3333");
+//        } catch (MalformedURLException e) {
+//            LOGGER.info("Не удалось получить адрес сессии");
+//        }
+//        HttpURLConnection con = null;
+//        try {
+//            con = (HttpURLConnection) url.openConnection();
+//        } catch (IOException e) {
+//            LOGGER.info("Не удалось установить подключение с сессией: \"" + session.getSlot().getRemoteURL().toString() + "\"");
+//        }
+//        try {
+//            con.setRequestMethod("GET");
+//            LOGGER.info("Отправка запроса к узлу: \"" + session.getSlot().getRemoteURL().toString() + "\"");
+//        } catch (ProtocolException e) {
+//            LOGGER.info("Не удалось отправить GET запрос : \"" + session.getSlot().getRemoteURL().toString() + "\"");
+//        }
     }
 }
