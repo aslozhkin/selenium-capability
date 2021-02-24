@@ -38,23 +38,23 @@ public class ListProxiesServlet extends RegistryBasedServlet {
                 .map(remoteProxy -> {
                     Map<String, String> map = new HashMap<>();
                     List<MutableCapabilities> nodeCapabilities = remoteProxy.getConfig().capabilities;
-                    map.put("platformVersion",
+                    map.put("platform_version",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("platformVersion")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"platformVersion\""))
                                     .toString());
-                    map.put("platformName",
+                    map.put("platform_name",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("platformName")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"platformName\""))
                                     .toString());
-                    map.put("udid",
+                    map.put("device_udid",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("udid")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"udid\""))
                                     .toString());
-                    map.put("deviceName",
+                    map.put("device_name",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("deviceName")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"deviceName\""))
                                     .toString());
-                    map.put("resolution",
+                    map.put("screen_resolution",
                             nodeCapabilities.stream().map(cap -> cap.getCapability("resolution")).findFirst()
                                     .orElseThrow(() -> new IllegalArgumentException("Отсутствует capability: \"resolution\""))
                                     .toString());
